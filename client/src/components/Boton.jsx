@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Button, Input } from "@nextui-org/react";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure,Checkbox } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure,Checkbox,Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+import like from "../assets/like.svg";
+import axios from 'axios';
 
 export const Boton = () => {
     const { isOpen: modal1Open, onOpen: onOpen1, onClose: onClose1 } = useDisclosure();
     const { isOpen: modal2Open, onOpen: onOpen2, onClose: onClose2 } = useDisclosure();
     const { isOpen: modal3Open, onOpen: onOpen3, onClose: onClose3 } = useDisclosure();
+    const { isOpen: modallikeOpen, onOpen: onOpenlike, onClose: onCloselike } = useDisclosure();
 
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
@@ -14,7 +17,15 @@ export const Boton = () => {
     const [ano, setAno] = useState(0);
     const [magister, setMagister] = useState(false);
     const [message, setMessage] = useState('');
+    const [transcript, setTranscript] = useState('');
 
+
+    const handleCloseAll = () => {
+        onClose1();
+        onClose2();
+        onClose3();
+        onCloselike();
+    };
 
     const handleBoton1 = () => {
         onOpen1();
@@ -27,24 +38,57 @@ export const Boton = () => {
     const handleBoton3 = () => {
         onOpen3();
     };
+    const handleBotonlike = () => {
+        onOpenlike();
+    };
+    // const handleAction = () => {
+    //     // setTimeout(function(){
+    //     //     location.reload();
+    //     // }, 1000);
 
-    const handlePostData = () => {
-        Axios.post('http://localhost:3306', {
-            nombre,
-            apellido,
-            email,
-            carrera,
-            ano,
-            magister,
-        })
-        .then((response) => {
-            // La solicitud se ha realizado con éxito, puedes manejar la respuesta aquí
+
+    // };
+
+    const handleTest = () => {
+        try {
+            const response = axios.post('http://localhost:5000/post_data_test', {
+                transcript
+            });
             setMessage('Solicitud exitosa');
-        })
-        .catch((error) => {
-            // Ha ocurrido un error en la solicitud, puedes manejar el error aquí
+            console.log(response);
+        } catch (error) {
+            console.log(error);
             setMessage('Error en la solicitud');
-        });
+        }
+    }
+
+    const handleAction = () => {
+        try {
+            const response = axios.post('http://localhost:5000/post_data', {
+                nombre,
+                apellido,
+                email,
+                carrera,
+                ano,
+                magister,
+            });
+            setMessage('Solicitud exitosa');
+            console.log(response);
+            
+            
+        } catch (error) {
+            console.log(error);
+            setMessage('Error en la solicitud');
+            
+        }
+
+        console.log(nombre);
+        console.log(apellido);
+        console.log(email);
+        console.log(carrera);
+        console.log(ano);
+        console.log(magister);
+        
     }
 
     return (
@@ -82,9 +126,30 @@ export const Boton = () => {
                         <Button color="danger" variant="light" onClick={onClose1}>
                             Close
                         </Button>
-                        <Button color="primary" onClick={onClose1} onClick={handlePostData}>
-                            Action
-                        </Button>
+
+
+
+                        <button onClick={handleAction}>Enviar</button>
+                        <Modal isOpen={modallikeOpen} onClose={onCloselike}  className='dark'>
+                            <ModalContent>
+                                <ModalHeader className="flex flex-col gap-1 text-white">Ha creado la wea con éxito</ModalHeader>
+                                <img src = {like} alt="Mi SVG feliz"/>
+                                {/* <ModalBody>
+                                    <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+                                        <Input isRequired className='text-white' />
+                                    </div>
+                                </ModalBody> */}
+                                {/* <ModalFooter>
+                                    <Button color="danger" variant="light" onClick={onClose2}>
+                                        Close
+                                    </Button>
+                                </ModalFooter> */}
+                            </ModalContent>
+                        </Modal>
+
+
+
+
                     </ModalFooter>
                 </ModalContent>
             </Modal>
@@ -98,16 +163,32 @@ export const Boton = () => {
                     <ModalHeader className="flex flex-col gap-1 text-white">Inserte el código</ModalHeader>
                     <ModalBody>
                         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-                            <Input isRequired className='text-white' />
+                            {/* <Input isRequired className='text-white' /> */}
+                            <Input
+                                className='text-white'
+                                label="Transcript"
+                                placeholder="0"
+                                value={transcript}
+                                onChange={(e) => setTranscript(e.target.value)}
+                                />
                         </div>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" variant="light" onClick={onClose2}>
                             Close
                         </Button>
-                        <Button color="primary" onClick={onClose2}>
-                            Action
-                        </Button>
+                        <Popover placement="right" color="success">
+                            <PopoverTrigger>
+                                <Button color="primary" className="capitalize" onClick={handleTest} >
+                                    Enviar 
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent>
+                                <div className="px-1 py-2">
+                                <div className="text-large font-bold">Cuenta creada con exito! 👍🏿🔥🥵🍆</div>
+                                </div>
+                            </PopoverContent>
+                            </Popover>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
@@ -127,9 +208,24 @@ export const Boton = () => {
                         <Button color="danger" variant="light" onClick={onClose3}>
                             Close
                         </Button>
-                        <Button color="primary" onClick={onClose3}>
-                            Action
-                        </Button>
+
+                        <button onClick={handleBotonlike}>Enviarasdasd</button>
+                        <Modal isOpen={modallikeOpen} onClose={handleCloseAll} onClick={handleCloseAll}  className='dark'>
+                            <ModalContent>
+                                <ModalHeader className="flex flex-col gap-1 text-white">Ha creado la wea con éxito</ModalHeader>
+                                <img src = {like} alt="Mi SVG feliz" className='w-14'/>
+                                <ModalBody>
+                                    {/* <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+                                        <Input isRequired className='text-white' />
+                                    </div> */}
+                                </ModalBody>
+                                {/* <ModalFooter>
+                                    <Button color="danger" variant="light" onClick={onClose2}>
+                                        Close
+                                    </Button>
+                                </ModalFooter> */}
+                            </ModalContent>
+                        </Modal>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

@@ -10,3 +10,21 @@ def connect():
     )
     return conexion
 
+
+
+def crear_cuenta(nombre,apellido,email,carrera,ano, magister):
+    connection = mysql.connector.connect( user='root', password='1234', port="3306", database='lab2023')
+    cursor = connection.cursor()
+    cursor.execute("INSERT INTO User (nombre,apellido,email,carreer,year, magister) VALUES (%s, %s, %s, %s, %s, %s)", (nombre,apellido,email,carrera,ano, magister))
+    connection.commit()
+    connection.close()
+    return {'success': True}
+
+def insert_attendance(Transcript):
+    connection = mysql.connector.connect( user='root', password='1234', port="3306", database='lab2023')
+    cursor = connection.cursor()
+    cursor.execute("INSERT INTO attendance_2 (Transcript) VALUES (%s)", (Transcript,))
+    connection.commit()
+    connection.close()
+    return {'success': True}
+
