@@ -37,3 +37,8 @@ def post_data_test():
     except Exception as e:
         print(e)
         return {"status": "no ok"}
+    
+
+    
+if __name__ == '__main__':
+    app.run()
