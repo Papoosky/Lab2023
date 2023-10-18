@@ -4,11 +4,12 @@ USE lab2023;
 CREATE TABLE User
 (
   User_id INT NOT NULL AUTO_INCREMENT,
-  Nombre VARCHAR(50) NOT NULL,
-  Email VARCHAR(50) NOT NULL,
+  Name VARCHAR(50) NOT NULL,
+  Last_name VARCHAR(50) NOT NULL,
+  Email VARCHAR(50) NOT NULL UNIQUE,
+  Password VARCHAR(100) NOT NULL,
   Carreer VARCHAR(50) NOT NULL,
   Year INT NOT NULL,
-  Apellido VARCHAR(50) NOT NULL,
   Magister VARCHAR(5) NOT NULL,
   Hash_user VARCHAR(100) NOT NULL,
   PRIMARY KEY (User_id)
@@ -28,7 +29,7 @@ CREATE TABLE Attendance_2
 (
   Attendance_id INT NOT NULL AUTO_INCREMENT,
   Transcript VARCHAR(100) NOT NULL,
-  PRIMARY KEY (Attendance_id),
+  PRIMARY KEY (Attendance_id)
 );
 
 CREATE TABLE Cam_discrepancy

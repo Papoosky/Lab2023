@@ -35,13 +35,13 @@ def connect():
     )
     return conexion
 
-def crear_cuenta(nombre,apellido,email,carrera,ano, magister):
+def crear_cuenta(nombre,apellido,email,password,carrera,ano, magister):
     connection = connect()
     cursor = connection.cursor()
     salt = bcrypt.gensalt()
     tohash= (nombre+apellido+email).encode('utf-8')
     hash= bcrypt.hashpw(tohash, salt)
-    cursor.execute("INSERT INTO User (nombre,apellido,email,carreer,year, magister, hash_user) VALUES (%s, %s, %s, %s, %s, %s,%s)", (nombre,apellido,email,carrera,ano, magister,hash))
+    cursor.execute("INSERT INTO User (name,last_name,email, password, carreer,year, magister, hash_user) VALUES (%s, %s, %s, %s, %s, %s,%s,%s)", (nombre,apellido,email, password,carrera,ano, magister,hash))
     connection.commit()
     connection.close()
     img = qrcode.make(hash)

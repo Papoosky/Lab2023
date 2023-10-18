@@ -16,7 +16,7 @@ def post_data():
     try: 
         if request.method == 'POST':
             data = request.json
-            cuenta = crear_cuenta(data["nombre"],data["apellido"],data["email"],data["carrera"],data["ano"],data["magister"])
+            cuenta = crear_cuenta(data["nombre"],data["apellido"],data["email"],data["password"],data["carrera"],data["ano"],data["magister"])
             return cuenta
         else:
             return("sexo")

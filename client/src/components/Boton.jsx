@@ -13,6 +13,7 @@ export const Boton = () => {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [carrera, setCarrera] = useState('');
     const [ano, setAno] = useState(0);
     const [magister, setMagister] = useState(false);
@@ -68,6 +69,7 @@ export const Boton = () => {
                 nombre,
                 apellido,
                 email,
+                password,
                 carrera,
                 ano,
                 magister,
@@ -82,12 +84,13 @@ export const Boton = () => {
             
         }
 
-        console.log(nombre);
-        console.log(apellido);
-        console.log(email);
-        console.log(carrera);
-        console.log(ano);
-        console.log(magister);
+        console.log("nombre: ",nombre);
+        console.log("apellido: ", apellido);
+        console.log("email: ",email);
+        console.log("passw: ",password);
+        console.log("carrera: ",carrera);
+        console.log("ano: ",ano);
+        console.log("magister: ",magister);
         
     }
 
@@ -104,8 +107,9 @@ export const Boton = () => {
                             <Input label="Nombre" isRequired className='text-white' value={nombre} onChange={(e) => setNombre(e.target.value)}/>
                             <Input label="Apellido" isRequired className='text-white' value={apellido} onChange={(e) => setApellido(e.target.value)}/>
                         </div>
-                        <div>
+                        <div className='flex flex-col gap-4'>
                             <Input type="email" label="Email" placeholder="Enter your email" isRequired className='text-white' value={email} onChange={(e) => setEmail(e.target.value)}/>
+                            <Input type="password" label="Password" placeholder="Enter your password" isRequired className='text-white' value={password} onChange={(e) => setPassword(e.target.value)}/>
                         </div>
                         <div className="flex w-full md:flex-nowrap gap-4">
                             <Input label="Carrera" placeholder="Enter your email" isRequired className='text-white' value={carrera} onChange={(e) => setCarrera(e.target.value)}/>
@@ -120,16 +124,13 @@ export const Boton = () => {
                             <Checkbox defaultSelected={magister} size="sm" onChange={() => setMagister(!magister)}>Magister</Checkbox>
                         </div>
                         
-
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" variant="light" onClick={onClose1}>
                             Close
                         </Button>
 
-
-
-                        <button onClick={handleAction}>Enviar</button>
+                        <Button onClick={handleAction}>Enviar</Button>
                         <Modal isOpen={modallikeOpen} onClose={onCloselike}  className='dark'>
                             <ModalContent>
                                 <ModalHeader className="flex flex-col gap-1 text-white">Ha creado la wea con éxito</ModalHeader>
@@ -146,10 +147,6 @@ export const Boton = () => {
                                 </ModalFooter> */}
                             </ModalContent>
                         </Modal>
-
-
-
-
                     </ModalFooter>
                 </ModalContent>
             </Modal>
