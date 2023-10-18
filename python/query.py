@@ -67,4 +67,13 @@ def insert_attendance(Transcript):
     connection.close()
     return {'success': True}
 
+def login_verificate(email, password):
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT hash_user FROM user WHERE email = %s AND password = %s ", (email, password))
+    print("mail= " + email+ "password= " + password)
+    result = cursor.fetchone()
+    print('resultado = ',result)
+    connection.close()
+    return result
 

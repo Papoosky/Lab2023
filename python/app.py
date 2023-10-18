@@ -38,6 +38,14 @@ def post_data_test():
         print(e)
         return {"status": "no ok"}
     
+@app.route('/login',methods = ['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        data = request.json
+        qrhash = login_verificate(data['email'],data['password'])
+        return ("sexo")
+    else:
+        return ('algo salió mal')
 
     
 if __name__ == '__main__':
