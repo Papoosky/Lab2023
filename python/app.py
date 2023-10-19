@@ -43,7 +43,8 @@ def login():
     if request.method == 'POST':
         data = request.json
         qrhash = login_verificate(data['email'],data['password'])
-        return ("sexo")
+        print (qrhash[0])
+        return (qrhash[0])
     else:
         return ('algo salió mal')
 
