@@ -1,8 +1,11 @@
 import cv2
 
 #print("Before URL")
-cap = cv2.VideoCapture('rtsp://root:proyectocapstone123@10.110.27.11/axis-media/media.amp')
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 #print("After URL")
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+cap.set(cv2.CAP_PROP_FPS, 60)
 
 while True:
 

@@ -57,17 +57,18 @@ def non_max_suppression_fast(boxes, overlapThresh):
 
 
 def main():
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+    # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+    # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+    # cap.set(cv2.CAP_PROP_FPS, 60)
 
     fps_start_time = datetime.datetime.now()
     fps = 0
     total_frames = 0
     lpc_count = 0
-    opc_count = 0
     object_id_list = []
     while True:
         ret, frame = cap.read()
-        frame = imutils.resize(frame, width=1080)
         total_frames = total_frames + 1
 
         (H, W) = frame.shape[:2]
@@ -126,8 +127,7 @@ def main():
         cv2.putText(frame, lpc_txt, (5, 60), cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 0, 255), 1)
 
         cv2.imshow("Application", frame)
-        key = cv2.waitKey(1)
-        if key == ord('q'):
+        if cv2.waitKey(1) == ord('q'):
             break
 
     cv2.destroyAllWindows()
