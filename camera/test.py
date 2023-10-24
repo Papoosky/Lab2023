@@ -5,7 +5,7 @@ import time
 # model
 model = YOLO("camera/yolov8n.pt")
 
-cap = cv2.VideoCapture('rtsp://root:capstone123@192.168.1.89/axis-media/media.amp')
+cap = cv2.VideoCapture(0)
 
 while cap.isOpened():
     success, frame = cap.read()
@@ -20,7 +20,8 @@ while cap.isOpened():
 
         annotated_frame = results[0].plot(conf = False)
 
-        cv2.putText(annotated_frame, f"FPS: {int(fps)}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+        cv2.putText(annotated_frame, f"FPS: {int(fps)}", (5, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 1)
+        cv2.putText(annotated_frame, f"Personas: {len(results[0])}", (5, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 1)
         cv2.imshow("YOLOv8", annotated_frame)
 
         if cv2.waitKey(1) & 0xFF == ord("q"):
