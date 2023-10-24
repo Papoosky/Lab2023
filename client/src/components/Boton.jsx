@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Button, Input } from "@nextui-org/react";
 import { useFormContext,useForm } from "react-hook-form";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure,Checkbox,Popover, PopoverTrigger, PopoverContent,Select, SelectItem} from "@nextui-org/react";
@@ -21,7 +21,14 @@ export const Boton = () => {
     const [message, setMessage] = useState('');
     const [salida, setSalida] = useState('');
     const [entrada, setEntrada] = useState('');
+    const [value, setValue] = useState('');
 
+
+    const validateRegister = (value) => value.match(/[.$].*[.$]/);
+
+    const isInvalid = useMemo(() => {
+    return !validateRegister(value);
+    }, [value]);
 
     const handleCloseAll = () => {
         onClose1();
@@ -94,7 +101,9 @@ export const Boton = () => {
         
     }
 
-    const inSubmit =  () => {
+    const inSubmit =  (e) => {
+        e.preventDefault();
+        if (!isInvalid) {
         try {
             const response = axios.post('http://localhost:5000/post_data_in', {
                 entrada
@@ -104,6 +113,10 @@ export const Boton = () => {
             console.log(error);
         }
         console.log(entrada)
+        }
+        else {
+            window.alert("Inserte un valor valido");
+        }
         }
 
 
@@ -130,8 +143,8 @@ export const Boton = () => {
             <Modal isOpen={modal1Open} onClose={onClose1} isDismissable={false} className='dark'>
                 <ModalContent color= '#131516'>
                     <ModalHeader className="flex flex-col gap-1 text-white">Cree su cuenta</ModalHeader>
+                    <form className='flex flex-col gap-4' onSubmit={handleAccount}>
                     <ModalBody>
-                        <form className='flex flex-col gap-4'>
 
                         <div className="flex w-full md:flex-nowrap gap-4">
                             <Input label="Nombre" isRequired className='text-white' value={nombre} onChange={(e) => setNombre(e.target.value)} style={{ textTransform: 'capitalize' }}/>
@@ -162,12 +175,13 @@ export const Boton = () => {
                                 type="number"
                                 label="Selecciona tu año"
                                 placeholder="0"
+                                min="1"
+                                max="12"
                                 value={ano}
                                 onChange={(e) => setAno(e.target.value)}
                                 />
                             <Checkbox defaultSelected={magister} size="sm" onChange={() => setMagister(!magister)}>Magister</Checkbox>
                         </div>
-                        </form>
                         
                     </ModalBody>
                     <ModalFooter>
@@ -175,9 +189,11 @@ export const Boton = () => {
                             Close
                         </Button>
 
-                        <Button onClick={handleAccount} onPress={onClose1}>Enviar</Button>
+                        <Button type='submit' >Enviar</Button>
+                        {/* onPress={onClose1} */}
                         
                     </ModalFooter>
+                    </form>
                 </ModalContent>
             </Modal>
             
@@ -189,15 +205,22 @@ export const Boton = () => {
             <Modal isOpen={modal2Open} onClose={onClose2} isDismissable={false} className='dark'>
                 <ModalContent>
                     <ModalHeader className="flex flex-col gap-1 text-white">Inserte el código</ModalHeader>
+                    <form onSubmit={inSubmit}>
+
                     <ModalBody>
                         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-                            {/* <Input isRequired className='text-white' /> */}
                             <Input
                                 className='text-white'
                                 label="Entrada"
                                 placeholder="Escanee el código qr"
                                 value={entrada}
+                                variant="bordered"
+                                isRequired
+                                isInvalid={isInvalid}
+                                color={isInvalid ? "default" : "success"}
+                                onValueChange={setValue}
                                 onChange={(e) => setEntrada(e.target.value)}
+                                
                                 />
                         </div>
                     </ModalBody>
@@ -205,19 +228,9 @@ export const Boton = () => {
                         <Button color="danger" variant="light" onClick={onClose2}>
                             Close
                         </Button>
-                        <Popover placement="right" color="success">
-                            <PopoverTrigger>
-                                <Button color="primary" className="capitalize" onClick={inSubmit} >
-                                    Enviar 
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent>
-                                <div className="px-1 py-2">
-                                <div className="text-large font-bold">Cuenta creada con exito! 👍🏿🔥🥵🍆</div>
-                                </div>
-                            </PopoverContent>
-                            </Popover>
+                        <Button type='submit'>Enviar</Button>
                     </ModalFooter>
+                    </form>
                 </ModalContent>
             </Modal>
 
