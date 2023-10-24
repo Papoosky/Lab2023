@@ -18,11 +18,11 @@ CREATE TABLE User
 CREATE TABLE Attendance
 (
   Attendance_id INT NOT NULL AUTO_INCREMENT,
-  Entry_date DATE NOT NULL,
-  Exit_date DATE NOT NULL,
-  User_id INT NOT NULL,
-  PRIMARY KEY (Attendance_id),
-  FOREIGN KEY (User_id) REFERENCES User(User_id)
+  Entry_date DATETIME NOT NULL,
+  Exit_date DATETIME  NOT NULL,
+  Hash_user VARCHAR(100) NOT NULL,
+  PRIMARY KEY (Attendance_id)
+  
 );
 
 CREATE TABLE Attendance_2

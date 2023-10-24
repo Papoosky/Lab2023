@@ -47,6 +47,32 @@ def login():
         return (qrhash[0])
     else:
         return ('algo salió mal')
+    
+@app.route('/post_data_in',methods = ['POST', 'GET'])
+def post_data_in():
+    try: 
+        if request.method == 'POST':
+            data = request.json
+            insert = instert_in(data["entrada"])
+            return insert
+        else:
+            return("Algo ocurrio")
+    except Exception as e:
+        print(e)
+        return {"status": "no ok"}
+
+@app.route('/post_data_out',methods = ['POST', 'GET'])
+def post_data_out():
+    try: 
+        if request.method == 'POST':
+            data = request.json
+            insert = insert_out(data["salida"])
+            return insert
+        else:
+            return("Algo ocurrio")
+    except Exception as e:
+        print(e)
+        return {"status": "no ok"}
 
     
 if __name__ == '__main__':

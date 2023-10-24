@@ -35,6 +35,22 @@ def insert_attendance(Transcript):
     connection.close()
     return {'success': True}
 
+def instert_in(registro):
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute("INSERT INTO attendance (Hash_user,Entry_date) VALUES (%s, NOW())", (registro,))
+    connection.commit()
+    connection.close()
+    return {'success': True}
+
+def insert_out(registro):
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute("INSERT INTO attendance (Hash_user,Exit_date) VALUES (%s, NOW())", (registro,))
+    connection.commit()
+    connection.close()
+    return {'success': True}
+
 def login_verificate(email, password):
     connection = connect()
     cursor = connection.cursor()

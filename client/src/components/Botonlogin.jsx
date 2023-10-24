@@ -61,16 +61,19 @@ export const Botonlogin = () => {
                   value={password} 
                   onChange={(e) => setPassword(e.target.value)}
                 />
-              {qrCodeComponent && (
-                    <QRCode
-                        title="GeeksForGeeks"
-                        value={qrCodeComponent}
-                        size={300}
-                        bgColor="#FFFFFF"
-                        renderAs="svg"
 
-                    />
+              <div className='flex justify-center'>
+              {qrCodeComponent && (
+                <QRCode
+                title="GeeksForGeeks"
+                value={qrCodeComponent}
+                size={300}
+                bgColor="#FFFFFF"
+                renderAs="svg"
+                
+                />
                 )}
+              </div>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
