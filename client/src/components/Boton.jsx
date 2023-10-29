@@ -1,15 +1,14 @@
 import React, { useState, useMemo } from 'react';
 import { Button, Input } from "@nextui-org/react";
-import { useFormContext,useForm } from "react-hook-form";
+// import { useFormContext,useForm } from "react-hook-form";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure,Checkbox,Popover, PopoverTrigger, PopoverContent,Select, SelectItem} from "@nextui-org/react";
-import like from "../assets/like.svg";
 import axios from 'axios';
 
 export const Boton = () => {
     const { isOpen: modal1Open, onOpen: onOpen1, onClose: onClose1 } = useDisclosure();
     const { isOpen: modal2Open, onOpen: onOpen2, onClose: onClose2 } = useDisclosure();
     const { isOpen: modal3Open, onOpen: onOpen3, onClose: onClose3 } = useDisclosure();
-    const { isOpen: modallikeOpen, onOpen: onOpenlike, onClose: onCloselike } = useDisclosure();
+    // const { isOpen: modallikeOpen, onOpen: onOpenlike, onClose: onCloselike } = useDisclosure();
 
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
