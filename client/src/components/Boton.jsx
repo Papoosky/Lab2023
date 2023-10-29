@@ -22,13 +22,18 @@ export const Boton = () => {
     const [salida, setSalida] = useState('');
     const [entrada, setEntrada] = useState('');
     const [value, setValue] = useState('');
+    const [value2, setValue2] = useState('');
+    
 
-
-    const validateRegister = (value) => value.match(/[.$].*[.$]/);
+    const validateRegisterIn = (value) => value.match(/[.$].*[.$]/);
+    const validateRegisterOut = (value2) => value2.match(/[.$].*[.$]/);
 
     const isInvalid = useMemo(() => {
-    return !validateRegister(value);
+    return !validateRegisterIn(value);
     }, [value]);
+    const isInvalid2 = useMemo(() => {
+    return !validateRegisterIn(value2);
+    }, [value2]);
 
     const handleCloseAll = () => {
         onClose1();
@@ -83,6 +88,9 @@ export const Boton = () => {
             });
             setMessage('Solicitud exitosa');
             console.log(response);
+            setTimeout(function(){
+            location.reload();
+            }, 1000);
             
             
         } catch (error) {
@@ -90,14 +98,6 @@ export const Boton = () => {
             setMessage('Error en la solicitud');
             
         }
-
-        console.log("nombre: ",nombre);
-        console.log("apellido: ", apellido);
-        console.log("email: ",email);
-        console.log("passw: ",password);
-        console.log("carrera: ",carrera);
-        console.log("ano: ",ano);
-        console.log("magister: ",magister);
         
     }
 
@@ -121,16 +121,20 @@ export const Boton = () => {
 
 
     const outSubmit =  () => {
-        try {
-            const response = axios.post('http://localhost:5000/post_data_out', {
-                salida
-            });
-            console.log(response);
-        } catch (error) {
-            console.log(error);
+        e.preventDefault();
+        if (!isInvalid2){
+
+            try {
+                const response = axios.post('http://localhost:5000/post_data_out', {
+                    salida
+                });
+                console.log(response);
+            } catch (error) {
+                console.log(error);
+            }
+            console.log(salida)
         }
-        console.log(salida)
-      }
+    }
     
     
 
@@ -212,6 +216,7 @@ export const Boton = () => {
                             <Input
                                 className='text-white'
                                 label="Entrada"
+                                type='password'
                                 placeholder="Escanee el código qr"
                                 value={entrada}
                                 variant="bordered"
@@ -220,7 +225,6 @@ export const Boton = () => {
                                 color={isInvalid ? "default" : "success"}
                                 onValueChange={setValue}
                                 onChange={(e) => setEntrada(e.target.value)}
-                                
                                 />
                         </div>
                     </ModalBody>
@@ -240,9 +244,23 @@ export const Boton = () => {
             <Modal isOpen={modal3Open} onClose={onClose3} isDismissable={false} className='dark'>
                 <ModalContent>
                     <ModalHeader className="flex flex-col gap-1 text-white">Inserte el código</ModalHeader>
+                    
+                    <form onSubmit={outSubmit}>
                     <ModalBody>
                         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-                            <Input isRequired label='Salida' className='text-white' placeholder="Escanee el código qr" onChange={(e) => setSalida(e.target.value)}/>
+                            <Input 
+                            className='text-white'
+                            label="Entrada"
+                            type='password'
+                            placeholder="Escanee el código qr"
+                            value={salida}
+                            variant="bordered"
+                            isRequired
+                            isInvalid={isInvalid2}
+                            color={isInvalid2 ? "default" : "success"}
+                            onValueChange={setValue2}
+                            onChange={(e) => setSalida(e.target.value)}
+                            />
                         </div>
                         
                     </ModalBody>
@@ -251,20 +269,10 @@ export const Boton = () => {
                             Close
                         </Button>
 
-                        <Popover placement="right" color="success">
-                            <PopoverTrigger>
-                                <Button color="primary" className="capitalize" onClick={outSubmit} >
-                                    Enviar 
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent>
-                                <div className="px-1 py-2">
-                                <div className="text-large font-bold">Registro exitoso! </div>
-                                </div>
-                            </PopoverContent>
-                            </Popover>
+                        <Button>Enviar</Button>
                         
                     </ModalFooter>
+                    </form>
                 </ModalContent>
             </Modal>
         </>
