@@ -150,12 +150,12 @@ export const Boton = () => {
                     <ModalBody>
 
                         <div className="flex w-full md:flex-nowrap gap-4">
-                            <Input label="Nombre" isRequired className='text-white' value={nombre} onChange={(e) => setNombre(e.target.value)} style={{ textTransform: 'capitalize' }}/>
-                            <Input label="Apellido" isRequired className='text-white' value={apellido} onChange={(e) => setApellido(e.target.value)} style={{ textTransform: 'capitalize' }}/>
+                            <Input label="Nombre" isRequired className='text-white' placeholder="Ingresa tu nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} style={{ textTransform: 'capitalize' }}/>
+                            <Input label="Apellido" isRequired className='text-white' placeholder="Ingresa tu apellido" value={apellido} onChange={(e) => setApellido(e.target.value)} style={{ textTransform: 'capitalize' }}/>
                         </div>
                         <div className='flex flex-col gap-4'>
-                            <Input type="email" label="Email" placeholder="Enter your email" isRequired className='text-white' value={email} onChange={(e) => setEmail(e.target.value)}/>
-                            <Input type="password" label="Password" placeholder="Enter your password" isRequired className='text-white' value={password} onChange={(e) => setPassword(e.target.value)}/>
+                            <Input type="email" label="Email" placeholder="Ingresa tu correo" isRequired className='text-white' value={email} onChange={(e) => setEmail(e.target.value)}/>
+                            <Input type="password" label="Password" placeholder="Ingresa tu contraseña" isRequired className='text-white' value={password} onChange={(e) => setPassword(e.target.value)}/>
                         </div>
                         <div className="flex w-full md:flex-nowrap gap-4">
                         <Select
@@ -177,7 +177,7 @@ export const Boton = () => {
                                 isRequired
                                 type="number"
                                 label="Selecciona tu año"
-                                placeholder="0"
+                                placeholder="1"
                                 min="1"
                                 max="12"
                                 value={ano}
