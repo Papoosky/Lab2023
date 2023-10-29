@@ -119,8 +119,9 @@ export const Boton = () => {
         }
 
 
-    const outSubmit =  () => {
+    const outSubmit =  (e) => {
         e.preventDefault();
+        console.log("SALIDAaaaaaa  ",  salida)
         if (!isInvalid2){
 
             try {
@@ -249,7 +250,7 @@ export const Boton = () => {
                         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
                             <Input 
                             className='text-white'
-                            label="Entrada"
+                            label="Salida"
                             type='password'
                             placeholder="Escanee el código qr"
                             value={salida}
@@ -267,9 +268,7 @@ export const Boton = () => {
                         <Button color="danger" variant="light" onClick={onClose3}>
                             Close
                         </Button>
-
-                        <Button>Enviar</Button>
-                        
+                        <Button type='submit'>Enviar</Button> 
                     </ModalFooter>
                     </form>
                 </ModalContent>
