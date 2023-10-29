@@ -28,20 +28,6 @@ def post_data():
         print(e)
         return {"status": "no ok"}
     
-@app.route('/post_data_test',methods = ['POST', 'GET'])
-def post_data_test():
-    #Example request
-    try: 
-        if request.method == 'POST':
-            data = request.json
-            cuenta = insert_attendance(data["transcript"])
-            return cuenta
-        else:
-            return("sexo")
-    except Exception as e:
-        print(e)
-        return {"status": "no ok"}
-    
 @app.route('/login',methods = ['POST', 'GET'])
 def login():
     if request.method == 'POST':

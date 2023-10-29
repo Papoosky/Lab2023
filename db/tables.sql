@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS lab2023;
 CREATE DATABASE lab2023;
 USE lab2023;
+
 CREATE TABLE User
 (
   User_id INT NOT NULL AUTO_INCREMENT,
@@ -23,13 +24,6 @@ CREATE TABLE Attendance
   Hash_user VARCHAR(100) NOT NULL,
   PRIMARY KEY (Attendance_id)
   
-);
-
-CREATE TABLE Attendance_2
-(
-  Attendance_id INT NOT NULL AUTO_INCREMENT,
-  Transcript VARCHAR(100) NOT NULL,
-  PRIMARY KEY (Attendance_id)
 );
 
 CREATE TABLE Cam_discrepancy
